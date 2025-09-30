@@ -10,7 +10,7 @@ ouzelData <- read.table('data/Data_SwissBreedingBirds.csv', header = T, sep = ',
 
 # Subset the data to remove excess data and leave only the relevant columns
 ouzelColumns <- c('Turdus_torquatus', 'bio_5', 'bio_2', 'bio_14', 'blockCV_tile')
-ouzelDateFrame <-data.frame(ouzelData)[ouzelColumns]
+ouzelDataFrame <-data.frame(ouzelData)[ouzelColumns]
 # Output result
 summary(ouzelDateFrame)
 
@@ -52,3 +52,5 @@ ouzelGLM <- glm(Turdus_torquatus ~ bio_2 + I(bio_2^2) + + bio_5 + I(bio_5^2) + b
 summary(ouzelGLM)
 plot(ouzelGLM)
 
+# Generate new data frames in which the individual 
+bio_2 <- seq(min(ouzelDateFrame))
