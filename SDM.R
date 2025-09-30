@@ -2,6 +2,8 @@
 install.packages("geodata",dependencies=TRUE,repos="https://cloud.r-project.org")
 library(geodata)
 library(terra)
+install.packages("glm2")
+library(glm2)
 
 # Read the contents of the csv file into a data set
 ouzelData <- read.table('data/Data_SwissBreedingBirds.csv', header = T, sep = ',')
@@ -42,3 +44,11 @@ names(futureClimate) <- c('bio_2', 'bio_5', 'bio_14')
 # Plot both the current and future climates
 plot(currentClimate)
 plot(futureClimate)
+
+# Create a GLM from the Ouzel DataFrame
+# Use ~, and for R, put powers in brackets with I in front
+
+ouzelGLM <- glm(Turdus_torquatus ~ bio_2 + I(bio_2^2) + + bio_5 + I(bio_5^2) + bio_14 + I(bio_14^2), family = 'binomial', data = ouzelDateFrame)
+summary(ouzelGLM)
+plot(ouzelGLM)
+
